@@ -1,5 +1,5 @@
 """
-@Project :acou-input-single
+@Project : AcouWrite
 @File ：__init__.py.py
 @Date ： 2022/8/29 15:13
 @Author ： Qiuyang Zeng

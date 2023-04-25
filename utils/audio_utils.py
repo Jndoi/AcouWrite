@@ -1,9 +1,9 @@
 """
-@Project :acouinput_python
-@File ：audio_utils.py
-@Date ： 2022/4/7 13:26
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : audio_utils.py
+@Date : 2022/4/7 13:26
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 import numpy as np

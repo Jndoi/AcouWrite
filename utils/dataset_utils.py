@@ -1,9 +1,9 @@
 """
-@Project :acouinput_python
-@File ：dataset_utils_new.py
-@Date ： 2022/5/27 13:22
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : dataset_utils_new.py
+@Date : 2022/5/27 13:22
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 import torch

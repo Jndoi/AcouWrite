@@ -1,9 +1,9 @@
 """
-@Project :acouinput_python
-@File ：transmitter.py
-@Date ： 2022/4/7 13:27
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : transmitter.py
+@Date : 2022/4/7 13:27
+@Author : Qiuyang Zeng
+@Software :PyCharm
 
 """
 import os

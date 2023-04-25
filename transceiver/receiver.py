@@ -1,9 +1,9 @@
 """
-@Project :acouinput_code
-@File ：receiver.py
-@Date ： 2022/3/30 23:55
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : receiver.py
+@Date : 2022/3/30 23:55
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 from utils.audio_utils import AudioUtils

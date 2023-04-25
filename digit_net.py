@@ -1,9 +1,9 @@
 """
-@Project :acou-input-single
-@File ：digit_net.py
-@Date ： 2023/4/5 22:39
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : digit_net.py
+@Date : 2023/4/5 22:39
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 import datetime

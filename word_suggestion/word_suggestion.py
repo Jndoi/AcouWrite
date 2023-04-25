@@ -1,9 +1,9 @@
 """
-@Project :symspelldemo
-@File ：word_suggestion.py
-@Date ： 2022/10/10 15:00
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : word_suggestion.py
+@Date : 2022/10/10 15:00
+@Author : Qiuyang Zeng
+@Software : PyCharm
 https://symspellpy.readthedocs.io/en/latest/index.html
 """
 import pkg_resources

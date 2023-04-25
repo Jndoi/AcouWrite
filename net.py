@@ -1,9 +1,9 @@
 """
-@Project :acou-input-torch
-@File ：single_net.py
-@Date ： 2022/7/15 20:18
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : single_net.py
+@Date : 2022/7/15 20:18
+@Author : Qiuyang Zeng
+@Software : PyCharm
 https://www.jianshu.com/p/0a889cc03156 迁移学习 冻结参数
 """
 import torch

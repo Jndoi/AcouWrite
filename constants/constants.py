@@ -1,9 +1,9 @@
 """
-@Project :acouinput_python
-@File ：constants.py
-@Date ： 2022/4/7 13:27
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : constants.py
+@Date : 2022/4/7 13:27
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 import numpy as np

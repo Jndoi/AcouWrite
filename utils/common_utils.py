@@ -1,9 +1,9 @@
 """
-@Project :acouinput_python
-@File ：common_utils.py
-@Date ： 2022/4/21 15:44
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : common_utils.py
+@Date : 2022/4/21 15:44
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 import pickle

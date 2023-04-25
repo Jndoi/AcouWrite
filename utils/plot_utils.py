@@ -1,9 +1,9 @@
 """
-@Project :acouinput_python
-@File ：plot_utils.py
-@Date ： 2022/4/7 13:28
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : plot_utils.py
+@Date : 2022/4/7 13:28
+@Author : Qiuyang Zeng
+@Software : PyCharm
 ref: https://blog.csdn.net/qq_41645987/article/details/109148274
 """
 import numpy as np

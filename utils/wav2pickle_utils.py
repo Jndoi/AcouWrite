@@ -1,9 +1,9 @@
 """
-@Project :acouinput_python
-@File ：wav2csv_pickle_utils.py
-@Date ： 2022/4/18 23:16
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : wav2csv_pickle_utils.py
+@Date : 2022/4/18 23:16
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 import os
