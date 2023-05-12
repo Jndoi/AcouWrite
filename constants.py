@@ -6,6 +6,8 @@
 @Software : PyCharm
 
 """
+import pickle
+
 import numpy as np
 
 
@@ -23,6 +25,16 @@ class DataType(object):
     AbsDCir = "AbsDCir"
     RealPhase = "RealPhase"
     AbsDCirAndRealPhase = "mixed"
+
+
+class PassbandSequence(object):
+    Barker = pickle.load(open('data/barker_passband.pkl', 'rb'))
+    GSM = pickle.load(open('data/gsm_passband.pkl', 'rb'))
+
+
+class BasebandSequence(object):
+    Barker = pickle.load(open('data/barker_baseband.pkl', 'rb'))
+    GSM = pickle.load(open('data/gsm_baseband.pkl', 'rb'))
 
 
 class SignalPaddingType(object):

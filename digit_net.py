@@ -11,7 +11,7 @@ import datetime
 import torch
 from torch import nn
 from torch.nn.utils.rnn import pack_padded_sequence
-from constants.constants import DatasetLoadType
+from constants import DatasetLoadType
 
 from net import Net, Conv2dWithBN, evaluate
 from utils.dataset_utils import get_data_loader

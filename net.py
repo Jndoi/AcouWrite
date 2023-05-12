@@ -10,9 +10,8 @@ import torch
 import datetime
 from torch import nn
 from torch.nn.utils.rnn import pack_padded_sequence
-from utils.wav2pickle_utils import DataItem
 from utils.dataset_utils import get_data_loader
-from constants.constants import DatasetLoadType
+from constants import DatasetLoadType
 
 BATCH_SIZE = 16
 EPOCH = 50

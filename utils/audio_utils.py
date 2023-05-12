@@ -8,9 +8,9 @@
 """
 import numpy as np
 from scipy import signal
-from constants.constants import Fs, Fc, SinOrCosType, LowerFrequency, UpperFrequency, DefaultAlignFramesNum, \
+from constants import Fs, Fc, SinOrCosType, LowerFrequency, UpperFrequency, DefaultAlignFramesNum, \
       LowPassFrequency, DeviceType
-from scipy.io.wavfile import write, read
+from scipy.io.wavfile import read
 
 
 class AudioUtils(object):
