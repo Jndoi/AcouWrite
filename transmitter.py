@@ -1,9 +1,9 @@
 """
-@Project :acouinput_python
-@File ：transmitter.py
-@Date ： 2022/4/7 13:27
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : transmitter.py
+@Date : 2022/4/7 13:27
+@Author : Qiuyang Zeng
+@Software :PyCharm
 
 """
 import os
@@ -12,32 +12,38 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numpy.fft import fftshift, fft, ifft
 from utils.audio_utils import AudioUtils
-from constants.constants import TrainingSequence, SinOrCosType, SignalType
+from constants import TrainingSequence, SinOrCosType, SignalType, PassbandSequence, BasebandSequence
 
 
 class Transmitter(object):
 
     @classmethod
     def get_passband_sequence(cls, signal_type=SignalType.Barker):
-        root_path = "../"
+        # root_path = "../"
+        root_path = ""
         if os.getcwd().endswith("AcouInput"):
             root_path = ""
         if signal_type == SignalType.GSM:
-            return pickle.load(open(root_path+'data/gsm_passband.pkl', 'rb'))
+            return PassbandSequence.GSM
+            # return pickle.load(open(root_path+'data/gsm_passband.pkl', 'rb'))
         elif signal_type == SignalType.Barker:
-            return pickle.load(open(root_path+'data/barker_passband.pkl', 'rb'))
+            return PassbandSequence.Barker
+            # return pickle.load(open(root_path+'data/barker_passband.pkl', 'rb'))
         else:
             raise Exception("NoSuchTypeError")
 
     @classmethod
     def get_baseband_sequence(cls, signal_type=SignalType.Barker):
-        root_path = "../"
+        # root_path = "../"
+        root_path = ""
         if os.getcwd().endswith("AcouInput"):
             root_path = ""
         if signal_type == SignalType.GSM:
-            return pickle.load(open(root_path + 'data/gsm_baseband.pkl', 'rb'))
+            return BasebandSequence.GSM
+            # return pickle.load(open(root_path + 'data/gsm_baseband.pkl', 'rb'))
         elif signal_type == SignalType.Barker:
-            return pickle.load(open(root_path + 'data/barker_baseband.pkl', 'rb'))
+            return BasebandSequence.Barker
+            # return pickle.load(open(root_path + 'data/barker_baseband.pkl', 'rb'))
         else:
             raise Exception("NoSuchTypeError")
 
@@ -68,7 +74,7 @@ class Transmitter(object):
         empty_seq = np.zeros((1, training_seq_fc.shape[1]))
         # the dim of 0 is top speaker and the dim of 1 is bottom speaker
         audio_signal = np.r_[training_seq_fc, empty_seq].T
-        audio_folder_path = os.path.join(os.path.abspath('..'), "audio")
+        audio_folder_path = os.path.join(os.path.abspath(''), "audio")
         if not os.path.exists(audio_folder_path):
             os.mkdir(audio_folder_path)
         # AudioUtils.write_audio(audio_signal, os.path.join(audio_folder_path, signal_type + "_frequency.wav"))

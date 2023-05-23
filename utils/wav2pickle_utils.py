@@ -1,16 +1,16 @@
 """
-@Project :acouinput_python
-@File ：wav2csv_pickle_utils.py
-@Date ： 2022/4/18 23:16
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : wav2csv_pickle_utils.py
+@Date : 2022/4/18 23:16
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 import os
 import pickle
 from tqdm import tqdm
-from transceiver.receiver import Receiver
-from constants.constants import START_INDEX_SHIFT
+from receiver import Receiver
+from constants import START_INDEX_SHIFT
 
 
 class DataItem:
@@ -32,9 +32,9 @@ def wav2pickle(wav_base_path, dump_path=None,
         for file in tqdm(files, desc=root):
             if os.path.splitext(file)[1] == '.wav':
                 label = file.split("_")[0]
-                split_abs_d_cir = Receiver.receive_real_time(root, file,
-                                                             start_index_shift=start_index_shift,
-                                                             augmentation_radio=augmentation_radio)
+                split_abs_d_cir = Receiver.receive(root, file,
+                                                   start_index_shift=start_index_shift,
+                                                   augmentation_radio=augmentation_radio)
                 for i in range(len(label)):
                     label_item_int = ord(label[i]) - ord('a')
                     data.append(DataItem(label_item_int, split_abs_d_cir[i]))

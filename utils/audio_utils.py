@@ -1,16 +1,16 @@
 """
-@Project :acouinput_python
-@File ：audio_utils.py
-@Date ： 2022/4/7 13:26
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : audio_utils.py
+@Date : 2022/4/7 13:26
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 import numpy as np
 from scipy import signal
-from constants.constants import Fs, Fc, SinOrCosType, LowerFrequency, UpperFrequency, DefaultAlignFramesNum, \
+from constants import Fs, Fc, SinOrCosType, LowerFrequency, UpperFrequency, DefaultAlignFramesNum, \
       LowPassFrequency, DeviceType
-from scipy.io.wavfile import write, read
+from scipy.io.wavfile import read
 
 
 class AudioUtils(object):

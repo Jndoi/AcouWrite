@@ -1,18 +1,17 @@
 """
-@Project :acou-input-torch
-@File ：single_net.py
-@Date ： 2022/7/15 20:18
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : single_net.py
+@Date : 2022/7/15 20:18
+@Author : Qiuyang Zeng
+@Software : PyCharm
 https://www.jianshu.com/p/0a889cc03156 迁移学习 冻结参数
 """
 import torch
 import datetime
 from torch import nn
 from torch.nn.utils.rnn import pack_padded_sequence
-from utils.wav2pickle_utils import DataItem
 from utils.dataset_utils import get_data_loader
-from constants.constants import DatasetLoadType
+from constants import DatasetLoadType
 
 BATCH_SIZE = 16
 EPOCH = 50

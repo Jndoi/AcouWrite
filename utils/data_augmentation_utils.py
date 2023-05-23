@@ -1,9 +1,9 @@
 """
-@Project :acou-input-torch
-@File ：data_augmentation_utils.py
-@Date ： 2022/7/6 16:21
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : data_augmentation_utils.py
+@Date : 2022/7/6 16:21
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 from scipy.interpolate import interp1d

@@ -1,17 +1,15 @@
 """
-@Project :acouinput_python
-@File ：common_utils.py
-@Date ： 2022/4/21 15:44
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : common_utils.py
+@Date : 2022/4/21 15:44
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
-import pickle
 import torch
 import numpy as np
 from scipy.signal import savgol_filter
-from utils.plot_utils import show_signals
-from constants.constants import LABEL_CLASSES, DataType, STEP
+from constants import LABEL_CLASSES, DataType, STEP
 
 
 def smooth_data(data, win_length=5, poly_order=3):
@@ -72,6 +70,58 @@ def segmentation(data):
                 if curr_gap_len >= word_gap_frame_num:
                     # print("出现单词")
                     pass  # todo 处理当前单词 进行拼写纠错
+    return res
+
+
+def segmentation_realtime(data):
+    shape = np.shape(data)  # (120, N) or (60, N)
+    frame_num = shape[1]
+    window_num = frame_num // STEP
+    alpha = 0.3
+    log_ste_frame = 10 * np.log(np.sum(np.square(data), axis=0))  # the log-STE of each frame
+    log_ste_window = np.reshape(log_ste_frame[:window_num*STEP], (window_num, STEP))
+    log_ste_window = np.sum(log_ste_window, axis=1) / STEP  # the avg log-STE of each window
+    thr = np.zeros(window_num)
+    thr[0] = log_ste_window[0]
+    for i in range(1, window_num):  # get the dynamic threshold of sliding window
+        thr[i] = (1 - alpha) * thr[i-1] + alpha * log_ste_window[i]
+    log_ste_thr = np.reshape(np.repeat(thr, STEP), -1, order='F')
+    log_ste_thr = np.concatenate((log_ste_thr, np.ones(frame_num - window_num*STEP) * log_ste_thr[-1]), axis=0)
+    is_higher_than_thr = log_ste_frame >= log_ste_thr
+    letter_frame_num = 30  # 字符的最小长度
+    letter_gap_frame_num = 30  # 字符间的间隔最小长度
+    word_gap_frame_num = 80  # 单词的间隔最小长度
+    # 1. 找到第一个非0的值 -> 第一个字符的起点
+    index = 0
+    while index < frame_num and not is_higher_than_thr[index]:
+        index = index + 1
+    letter_start_index = index  # 字符的起始索引（第一个高于阈值的采样点索引）
+    res = []  # 所有分段后的单词
+    curr = []  # 当前单词
+    # 2. 遍历所有的帧，当is_higher_than_thr时跳过，并更新end_index，
+    # 找到所有的间隔
+    while index < frame_num:
+        # 1) 找到下一个低于阈值的采样点，即为gap的起始点
+        while index < frame_num and is_higher_than_thr[index]:
+            index = index + 1
+        gap_start_index = index
+        # 2) 一直遍历gap，找到第一个高于阈值的采样点
+        # 如果gap的长度高于阈值，则视为一个字符，否则当前间隔视为字符的一部分
+        while index < frame_num and not is_higher_than_thr[index]:
+            index = index + 1
+        gap_end_index = index
+        curr_gap_len = gap_end_index - gap_start_index
+        if curr_gap_len >= letter_gap_frame_num or index == frame_num:  # 当前字符结束 且当前单词结束
+            curr_letter_len = gap_start_index - letter_start_index  # 不包含gap_start_index
+            if curr_letter_len >= letter_frame_num:
+                letter_end_index = gap_start_index
+                curr.append([letter_start_index, letter_end_index])
+                letter_start_index = gap_end_index
+                if curr_gap_len >= word_gap_frame_num:
+                    res.append(curr)
+                    curr = []
+    if not len(curr) == 0:  # 把当前的单词加入到结果中
+        res.append(curr)
     return res
 
 

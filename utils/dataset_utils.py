@@ -1,9 +1,9 @@
 """
-@Project :acouinput_python
-@File ：dataset_utils_new.py
-@Date ： 2022/5/27 13:22
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : dataset_utils_new.py
+@Date : 2022/5/27 13:22
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 import torch
@@ -11,8 +11,8 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from torch.utils.data.dataset import Dataset
 from torch.utils.data import DataLoader, random_split
-from constants.constants import DatasetLoadType, DataType, DEFAULT_CONFIG
-from utils.wav2pickle_utils import load_data_from_pickle, DataItem
+from constants import DatasetLoadType, DataType, DEFAULT_CONFIG
+from utils.wav2pickle_utils import load_data_from_pickle
 from utils.plot_utils import show_d_cir
 from utils.common_utils import padding_batch_signals
 
@@ -140,7 +140,7 @@ class AcouInputAbsDCirDataset(AcouInputDataset):
 
 def pack_padded_sequence_collate_fn_abs_d_cir(data):
     # Packs a Tensor containing padded sequences of variable length.
-    from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence
+    from torch.nn.utils.rnn import pad_sequence
     data.sort(key=lambda x: len(x[0]), reverse=True)
     abs_d_cir = [torch.tensor(s[0]).float() / 255 for s in data]
     seq_len = [len(s) for s in abs_d_cir]

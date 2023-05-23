@@ -1,20 +1,19 @@
 """
-@Project :acouinput_code
-@File ：receiver.py
-@Date ： 2022/3/30 23:55
-@Author ： Qiuyang Zeng
-@Software ：PyCharm
+@Project : AcouWrite
+@File : receiver.py
+@Date : 2022/3/30 23:55
+@Author : Qiuyang Zeng
+@Software : PyCharm
 
 """
 from utils.audio_utils import AudioUtils
-from transceiver.transmitter import Transmitter
-from constants.constants import *
-from utils.common_utils import segmentation
+from transmitter import Transmitter
+from utils.common_utils import segmentation, segmentation_realtime
 from utils.plot_utils import show_finger_movement_distance, show_finger_movement_d_cir
 from scipy.signal import savgol_filter
 from utils.data_augmentation_utils import augmentation_speed
+from constants import *
 import os
-
 
 
 class Receiver(object):
@@ -296,7 +295,7 @@ class Receiver(object):
         return data
 
     @classmethod
-    def receive_real_time(cls, base_path, filename, start_index_shift=START_INDEX_SHIFT, augmentation_radio=None):
+    def receive(cls, base_path, filename, start_index_shift=START_INDEX_SHIFT, augmentation_radio=None):
         data = cls.get_signals_by_filename(base_path, filename, start_index_shift=start_index_shift)
         data = cls.cal_d_cir(cls.demodulation(data), cls.gen_training_matrix())
         data = cls.smooth_data(np.real(data)) + 1j * cls.smooth_data(np.imag(data))
@@ -316,6 +315,26 @@ class Receiver(object):
                 data_abs = augmentation_speed(data_abs, speed_radio=augmentation_radio)
             curr_data_abs = cls.split_abs_d_cir(data_abs)
             segmentation_data.append(curr_data_abs)
+        return segmentation_data
+
+    @classmethod
+    def receive_realtime(cls, base_path, filename, start_index_shift=START_INDEX_SHIFT, augmentation_radio=None):
+        data = cls.get_signals_by_filename(base_path, filename, start_index_shift=start_index_shift)
+        data = cls.cal_d_cir(cls.demodulation(data), cls.gen_training_matrix())
+        data = cls.smooth_data(np.real(data)) + 1j * cls.smooth_data(np.imag(data))
+        data = cls.down_sampling(data)
+        data_abs = np.abs(data)
+        # 对信号进行分段[[begin1, end1], [begin2, end2], ..., ]
+        segmentation_index = segmentation_realtime(data_abs)
+        segmentation_data = []  # 包含所有的单词
+        curr_word_segmentation_data = []
+        for word_index in segmentation_index:  # 对于每一个单词\
+            for letter_index in word_index:  # 对于每一个字符
+                curr_data_abs = data_abs[:, letter_index[0]:letter_index[1]]
+                curr_data_abs = cls.split_abs_d_cir(curr_data_abs)
+                curr_word_segmentation_data.append(curr_data_abs)
+            segmentation_data.append(curr_word_segmentation_data)
+            curr_word_segmentation_data = []
         return segmentation_data
 
     @classmethod
@@ -341,4 +360,8 @@ class Receiver(object):
 
 
 if __name__ == '__main__':
-        pass
+    pass
+    data = Receiver.receive_realtime(base_path=r'D:\Program\Tencent\QQ-Chat-Record\563496927\FileRecv\MobileFile',
+                                     filename='a word_1667371289681.wav')
+    data = np.array(data)
+    print(data.shape)
